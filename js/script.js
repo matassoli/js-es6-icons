@@ -1,14 +1,6 @@
-// Milestone 1
-// Partendo dalla seguente struttura dati , mostriamo in pagina tutte le icone disponibili come da layout.
-// 
-// Milestone 2
-// Coloriamo le icone per tipo
-// 
-// Milestone 3
-// Creiamo una select con i tipi di icone e usiamola per filtrare le icone
+/*jshint esversion: 6 */
 
-const icons = [
-  {
+const icons = [{
     name: 'apple-alt',
     family: 'fas',
     prefix: 'fa-',
@@ -117,3 +109,24 @@ const icons = [
     category: "animal"
   },
 ];
+
+// ciclo fra gli elementi icons, faccio destrutturazione e li ricompongo assegnandoli all'html
+icons.forEach((item) => {
+  const {
+    name,
+    family,
+    prefix
+  } = item;
+
+  const html = `<div>
+<i class="${family} ${prefix}${name}"></i>
+<div class="title">${name}</div>
+</div>`;
+  $(".icons").append(html);
+});
+
+
+// Milestone 2
+// Coloriamo le icone per categoria
+// Milestone 3
+// Creiamo una select con le categorie di icone e usiamola per filtrare le icone
