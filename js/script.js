@@ -134,10 +134,8 @@ const colorIcon = icons.map((icon) => {
       colorItem = item.color;
     }
   });
-
   icon.color = colorItem;
   return icon;
-
 });
 
 // ciclo fra gli elementi icons, faccio destrutturazione e li ricompongo assegnandoli all'html
@@ -154,4 +152,51 @@ icons.forEach((item) => {
 <div class="title">${name}</div>
 </div>`;
   $(".icons").append(html);
+});
+
+
+const categories = [];
+
+
+// Creiamo una select con le categorie di icone e usiamola per filtrare le icone
+const select = $("#type");
+
+icons.forEach((item) => {
+  if (!categories.includes(item.category)) {
+    categories.push(item.category);
+  }
+});
+
+categories.forEach((item) => {
+  const optionHtml = `<option value="${item}">${item}</option>`;
+  select.append(optionHtml);
+});
+
+select.change(function() {
+  const optionSelected = $(this).val();
+
+  let iconsFiltered = icons.filter((icon) => {
+    return icon.category == optionSelected;
+  });
+
+  if (iconsFiltered.length == 0) {
+    iconsFiltered = icons;
+  }
+
+  $(".icons").html("");
+
+  iconsFiltered.forEach((item) => {
+    const {
+      name,
+      family,
+      prefix,
+      color
+    } = item;
+
+    let html = `<div>
+<i class="${family} ${prefix}${name}" style="color: ${color}"></i>
+<div class="title">${name}</div>
+</div>`;
+    $(".icons").append(html);
+  });
 });
